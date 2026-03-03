@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE DOOM ARCHIVE</title>
+<meta name="description" content="A fan site documenting MF DOOM, his discography, alter egos, and legacy.">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+html { scroll-behavior: smooth; }
+
+body{
+    margin:0;
+    font-family:'Montserrat',sans-serif;
+    background: linear-gradient(to bottom,#0a0a0a,#000);
+    color:#e0e0e0;
+    overflow-x:hidden;
+}
+
+/* Film grain overlay */
+body::after{
+    content:"";
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+    opacity:0.05;
+    pointer-events:none;
+    z-index:9999;
+}
+
+.container{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 40px;
+}
+
+/* ================= NAV ================= */
+
+nav{
+    background:#111;
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+nav a.brand{
+    color:#C9A227;
+    font-weight:900;
+    text-decoration:none;
+    font-size:20px;
+}
+
+nav a{
+    color:#7a0000;
+    text-decoration:none;
+    font-weight:bold;
+    margin-left:20px;
+    position:relative;
+}
+
+nav a:hover{ color:#C9A227; }
+
+.nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:#C9A227;
+    font-size:26px;
+}
+
+@media(max-width:768px){
+    .nav-toggle{display:block;}
+    .nav-links{display:none;flex-direction:column;}
+    nav.active .nav-links{display:flex;}
+    nav a{margin:10px 0;}
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:
+        linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.9)),
+        url("https://i.pinimg.com/originals/4d/1b/9f/4d1b9f1e89e1b77c59b97e9dfdfc1e3d.jpg")
+        center/cover no-repeat;
+}
+
+h1{
+    font-size:48px;
+    color:#C9A227;
+    letter-spacing:4px;
+    text-shadow:0 0 15px rgba(201,162,39,0.6);
+}
+
+.tagline{
+    margin-top:15px;
+    font-style:italic;
+    opacity:0.7;
+}
+
+/* Music controls */
+
+.music-controls{
+    margin-top:30px;
+    text-align:center;
+}
+
+#music-toggle{
+    background:#7a0000;
+    color:#C9A227;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#music-toggle:hover{
+    background:#C9A227;
+    color:#000;
+}
+
+.volume-slider{
+    margin-top:10px;
+    width:150px;
+}
+
+/* ================= HEADINGS ================= */
+
+h2{
+    color:#C9A227;
+    margin-top:80px;
+    border-bottom:2px solid #444;
+    padding-bottom:10px;
+}
+
+h3{ color:#7a0000; }
+
+p,ul{ line-height:1.7; }
+
+/* ================= FADE ================= */
+
+.fade{
+    opacity:0;
+    transform:translateY(40px);
+    transition:all 0.8s ease;
+}
+.fade.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ================= CARDS ================= */
+
+.members-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.member-card{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+
+.member-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px rgba(201,162,39,0.4);
+}
+
+/* ================= MODALS ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+.modal-content{
+    background:#1a1a1a;
+    padding:30px;
+    border-radius:10px;
+    max-width:500px;
+    width:90%;
+    text-align:center;
+}
+
+.close-btn{
+    cursor:pointer;
+    font-size:24px;
+    color:#C9A227;
+    position:absolute;
+    top:20px;
+    right:30px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    margin-top:80px;
+    padding:30px;
+    text-align:center;
+    background:#111;
+    font-size:14px;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="#hero" class="brand">THE DOOM ARCHIVE</a>
+    <button class="nav-toggle">☰</button>
+    <div class="nav-links">
+        <a href="#origin">Origin</a>
+        <a href="#discography">Discography</a>
+        <a href="#alteregos">Alter Egos</a>
+    </div>
+</nav>
+
+<section class="hero" id="hero">
+    <h1>ALL CAPS WHEN YOU SPELL THE MAN NAME</h1>
+    <div class="tagline">Villainy lives forever.</div>
+
+    <div class="music-controls">
+        <button id="music-toggle">🎵 Play Music</button><br>
+        <input type="range" min="0" max="100" value="40" class="volume-slider" id="volume">
+    </div>
+</section>
+
+<div class="container">
+
+<h2 id="origin" class="fade">ORIGIN OF THE VILLAIN</h2>
+<p class="fade">
+Born Daniel Dumile, MF DOOM first emerged as Zev Love X of KMD.
+After the passing of his brother Subroc, he vanished from the industry,
+returning years later masked as a comic-book supervillain.
+</p>
+
+<h2 id="discography" class="fade">DISCOGRAPHY</h2>
+<ul class="fade">
+<li><strong>Operation: Doomsday (1999)</strong></li>
+<li><strong>Mm..Food (2004)</strong></li>
+<li><strong>Madvillainy (2004)</strong></li>
+<li><strong>Born Like This (2009)</strong></li>
+</ul>
+
+<h2 id="alteregos" class="fade">ALTER EGOS</h2>
+<div class="members-grid fade">
+    <div class="member-card" data-modal="doom">MF DOOM</div>
+    <div class="member-card" data-modal="viktor">Viktor Vaughn</div>
+    <div class="member-card" data-modal="geedorah">King Geedorah</div>
+    <div class="member-card" data-modal="zev">Zev Love X</div>
+</div>
+
+</div>
+
+<!-- MODALS -->
+
+<div class="modal" id="doom">
+<div class="modal-content">
+<p>The masked supervillain persona that defined underground hip-hop.</p>
+</div>
+</div>
+
+<div class="modal" id="viktor">
+<div class="modal-content">
+<p>A time-traveling lyrical scientist with darker themes.</p>
+</div>
+</div>
+
+<div class="modal" id="geedorah">
+<div class="modal-content">
+<p>An alien entity inspired by classic monster cinema.</p>
+</div>
+</div>
+
+<div class="modal" id="zev">
+<div class="modal-content">
+<p>The early identity during the KMD era.</p>
+</div>
+</div>
+
+<footer>
+<p>© 2026 THE DOOM ARCHIVE</p>
+<p>Background music embedded via YouTube for educational use.</p>
+</footer>
+
+<script>
+
+/* NAV TOGGLE */
+const navToggle=document.querySelector(".nav-toggle");
+const nav=document.querySelector("nav");
+navToggle.addEventListener("click",()=>nav.classList.toggle("active"));
+
+/* FADE IN */
+const faders=document.querySelectorAll(".fade");
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("visible");
+        }
+    });
+},{threshold:0.2});
+faders.forEach(f=>observer.observe(f));
+
+/* MODALS */
+document.querySelectorAll(".member-card").forEach(card=>{
+    card.addEventListener("click",()=>{
+        document.getElementById(card.dataset.modal).style.display="flex";
+    });
+});
+window.addEventListener("click",e=>{
+    if(e.target.classList.contains("modal")){
+        e.target.style.display="none";
+    }
+});
+
+/* MUSIC */
+let iframe;
+let playing=false;
+
+document.getElementById("music-toggle").addEventListener("click",function(){
+    if(!playing){
+        iframe=document.createElement("iframe");
+        iframe.src="https://www.youtube.com/embed/4PoCA4taNyg?autoplay=1&loop=1&playlist=4PoCA4taNyg";
+        iframe.style.display="none";
+        iframe.allow="autoplay";
+        document.body.appendChild(iframe);
+        this.textContent="⏸ Pause Music";
+        playing=true;
+    }else{
+        iframe.remove();
+        this.textContent="🎵 Play Music";
+        playing=false;
+    }
+});
+
+</script>
+
+</body>
+</html>
